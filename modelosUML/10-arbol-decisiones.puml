@@ -1,0 +1,46 @@
+@startuml
+
+skinparam ObjectFontName "Courier"
+skinparam ObjectFontSize 11
+skinparam ArrowFontName "Courier"
+skinparam ArrowFontSize 10
+skinparam ObjectBorderColor black
+skinparam ObjectBackgroundColor white
+
+object "fabricar(0, [])" as r
+
+object "fabricar(1, [1])" as n1
+object "fabricar(1, [])" as n0
+
+object "f(2, [1,2])" as n12
+object "f(2, [1])" as n1b
+object "f(2, [2])" as n2
+object "f(2, [])" as n0b
+
+object "[1,2,3]" as l123 #cce5ff
+object "[1,2]"   as l12  #cce5ff
+object "[1,3]"   as l13  #cce5ff
+object "[1]"     as l1   #cce5ff
+object "[2,3]"   as l23  #cce5ff
+object "[2]"     as l2   #cce5ff
+object "[3]"     as l3   #cce5ff
+object "[]"      as l0   #cce5ff
+
+r  -d-> n1  : incluir 1
+r  -d-> n0  : excluir 1
+
+n1 -d-> n12 : incluir 2
+n1 -d-> n1b : excluir 2
+n0 -d-> n2  : incluir 2
+n0 -d-> n0b : excluir 2
+
+n12 -d-> l123 : incluir 3
+n12 -d-> l12  : excluir 3
+n1b -d-> l13  : incluir 3
+n1b -d-> l1   : excluir 3
+n2  -d-> l23  : incluir 3
+n2  -d-> l2   : excluir 3
+n0b -d-> l3   : incluir 3
+n0b -d-> l0   : excluir 3
+
+@enduml

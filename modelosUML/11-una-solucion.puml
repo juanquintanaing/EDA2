@@ -1,0 +1,44 @@
+@startuml
+
+skinparam ObjectFontName "Courier"
+skinparam ObjectFontSize 10
+skinparam ArrowFontName "Courier"
+skinparam ArrowFontSize 9
+skinparam ObjectBorderColor black
+skinparam ObjectBackgroundColor white
+
+object "buscar(0, r=7, [])" as r
+object "buscar(1, r=6, [1])" as n1
+object "buscar(2, r=4, [1,2])" as n12
+object "buscar(3, r=1, [1,2,3])" as n123
+object "buscar(3, r=4, [1,2])" as n12x
+object "buscar(4, r=-3, [1,2,3,4])" as n1234
+object "buscar(4, r=1,  [1,2,3])" as n123x4
+
+object "false" as f1 #ffcccc
+object "false" as f2 #ffcccc
+object "false" as f3 #ffcccc
+object "false" as f4 #ffcccc
+
+object "SOLUCION\n[1,2,4]" as sol #ccffcc
+
+object "sin explorar" as u1 #e8e8e8
+object "sin explorar" as u2 #e8e8e8
+object "sin explorar" as u3 #e8e8e8
+
+r    -d-> n1     : incluir 1
+r    -d-> u1     #gray : excluir 1
+n1   -d-> n12    : incluir 2
+n1   -d-> u2     #gray : excluir 2
+n12  -d-> n123   : incluir 3
+n12  -d-> n12x   : excluir 3
+n123 -d-> n1234  : incluir 4
+n123 -d-> n123x4 : excluir 4
+n1234  -d-> f1   : incluir 5
+n1234  -d-> f2   : excluir 5
+n123x4 -d-> f3   : incluir 5
+n123x4 -d-> f4   : excluir 5
+n12x -d-> sol    : incluir 4\nr=4-4=0
+n12x -d-> u3     #gray : excluir 4
+
+@enduml

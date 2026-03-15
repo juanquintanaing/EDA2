@@ -1,0 +1,109 @@
+@startuml
+
+skinparam ObjectFontName "Courier"
+skinparam ObjectFontSize 9
+skinparam ArrowFontName "Courier"
+skinparam ArrowFontSize 8
+skinparam ObjectBorderColor black
+skinparam ObjectBackgroundColor white
+
+' Nivel 0
+object "r=7, []" as r
+
+' Nivel 1
+object "r=6, [1]" as n1
+object "r=7, []" as n0
+
+' Nivel 2
+object "r=4, [1,2]" as n12
+object "r=6, [1]" as n1x
+object "r=5, [2]" as n02
+object "r=7, []" as n0x
+
+' Nivel 3
+object "r=1, [1,2,3]" as n123
+object "r=4, [1,2]" as n12x
+object "r=3, [1,3]" as n1x3
+object "r=6, [1]" as n1xx
+object "r=2, [2,3]" as n023
+object "r=5, [2]" as n02x
+object "r=4, [3]" as n0x3
+object "r=7, []" as n0xx
+
+' Nivel 4
+object "r=-3, [1,2,3,4]" as poda1 #ffcccc
+object "r=1,  [1,2,3]" as n123x #ffeeee
+object "SOLUCION\n[1,2,4]" as sol1 #ccffcc
+object "r=4,  [1,2]" as n12xx #ffeeee
+object "r=-1, [1,3,4]" as poda2 #ffcccc
+object "r=3,  [1,3]" as n1x3x #ffeeee
+object "..." as n1xxx #eeeeee
+object "..." as n1x4 #eeeeee
+object "r=-2, [2,3,4]" as poda3 #ffcccc
+object "r=2,  [2,3]" as n023x #ffeeee
+object "r=1,  [2,4]" as n02x4 #ffeeee
+object "r=5,  [2]" as n02xx
+object "SOLUCION\n[3,4]" as sol3 #ccffcc
+object "r=4,  [3]" as n0x3x #ffeeee
+object "..." as n0xx4 #eeeeee
+object "..." as n0xxx #eeeeee
+
+' Nivel 5
+object "false" as f1a #ffaaaa
+object "false" as f1b #ffaaaa
+object "false" as f2a #ffaaaa
+object "false" as f2b #ffaaaa
+object "false" as f3a #ffaaaa
+object "false" as f3b #ffaaaa
+object "SOLUCION\n[2,5]" as sol2 #ccffcc
+object "false" as f2x #ffaaaa
+
+' Nivel 0 -> 1
+r -d-> n1 : inc 1
+r -d-> n0 : exc 1
+
+' Nivel 1 -> 2
+n1 -d-> n12 : inc 2
+n1 -d-> n1x : exc 2
+n0 -d-> n02 : inc 2
+n0 -d-> n0x : exc 2
+
+' Nivel 2 -> 3
+n12 -d-> n123 : inc 3
+n12 -d-> n12x : exc 3
+n1x -d-> n1x3 : inc 3
+n1x -d-> n1xx : exc 3
+n02 -d-> n023 : inc 3
+n02 -d-> n02x : exc 3
+n0x -d-> n0x3 : inc 3
+n0x -d-> n0xx : exc 3
+
+' Nivel 3 -> 4
+n123 -d-> poda1 : inc 4
+n123 -d-> n123x : exc 4
+n12x -d-> sol1  : inc 4\nr=4-4=0
+n12x -d-> n12xx : exc 4
+n1x3 -d-> poda2 : inc 4
+n1x3 -d-> n1x3x : exc 4
+n1xx -d-> n1xxx : inc 4
+n1xx -d-> n1x4  : exc 4
+n023 -d-> poda3 : inc 4
+n023 -d-> n023x : exc 4
+n02x -d-> n02x4 : inc 4
+n02x -d-> n02xx : exc 4
+n0x3 -d-> sol3  : inc 4\nr=4-4=0
+n0x3 -d-> n0x3x : exc 4
+n0xx -d-> n0xx4 : inc 4
+n0xx -d-> n0xxx : exc 4
+
+' Nivel 4 -> 5
+poda1 -d-> f1a : inc 5
+poda1 -d-> f1b : exc 5
+poda2 -d-> f2a : inc 5
+poda2 -d-> f2b : exc 5
+poda3 -d-> f3a : inc 5
+poda3 -d-> f3b : exc 5
+n02xx -d-> sol2 : inc 5\nr=5-5=0
+n02xx -d-> f2x  : exc 5
+
+@enduml
